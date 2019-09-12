@@ -65,6 +65,9 @@ public class Controller {
 
     @FXML
     void random(ActionEvent event) {
+    	try {
+    		PlaySong.m.stop();
+    	}catch (Exception e) {}
     	Random rnd = new Random();
     	PlaySong.play(SongCookies.songs.get(rnd.nextInt(SongCookies.songs.size())));
     	PlaySong.m.play();

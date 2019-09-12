@@ -5,7 +5,7 @@ import java.io.File;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-public class PlaySong {
+public class PlaySong{
 	public static MediaPlayer m;
 	
 	public static void play(String path) {

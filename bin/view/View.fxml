@@ -20,6 +20,5 @@
       <Button layoutX="235.0" layoutY="169.0" mnemonicParsing="false" onAction="#stop" text="Stop" />
       <Button layoutX="300.0" layoutY="169.0" mnemonicParsing="false" onAction="#next" text="Next" />
       <Button layoutX="218.0" layoutY="127.0" mnemonicParsing="false" onAction="#select" text="Select" />
-      <Button layoutX="29.0" layoutY="292.0" mnemonicParsing="false" onAction="#showArray" text="show array" />
    </children>
 </AnchorPane>

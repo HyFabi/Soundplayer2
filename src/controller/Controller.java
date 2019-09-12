@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -60,6 +61,9 @@ public class Controller {
 
     @FXML
     void play(ActionEvent event) {
+    	try {
+    		PlaySong.m.stop();
+    	}catch (Exception e) {}
     	PlaySong.m.play();
     }
 
@@ -88,9 +92,9 @@ public class Controller {
     	FileChooser f = new FileChooser();
     	f.setTitle("Open Sound File");
     	f.getExtensionFilters().add(new ExtensionFilter("Audio Files", "*.wav", "*.mp3"));
-    	File file = f.showOpenDialog(Main.s);
-    	if (file != null) {
-    		PlaySong.play(file.getAbsolutePath());
+    	List<File> list = f.showOpenMultipleDialog(Main.s);
+    	if (list != null) {
+			SongCookies.newLink(list);
     	}
     }
 }

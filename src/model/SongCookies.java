@@ -5,9 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-import javax.print.DocFlavor.STRING;
+import javafx.collections.ObservableList;
 
 public class SongCookies {
 	public static ArrayList<String> songs;
@@ -30,6 +31,18 @@ public class SongCookies {
 		}
 		s.close();
 		return list;
+	}
+	
+	public static void newLink(List<File> o) {
+		for(File x : o){
+			for(String s : songs) {
+				if(s.equals(x.getAbsolutePath())) {
+					break;
+				}
+			}
+			songs.add(x.getAbsolutePath());
+		}
+		save();
 	}
 	
 	public static void newLink(String x) {

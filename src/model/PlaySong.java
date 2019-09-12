@@ -12,6 +12,7 @@ public class PlaySong{
 		try {
 			SongCookies.newLink(path);
 			Media media = new Media(new File(path).toURI().toString());
+			System.out.println(media);
 			m = new MediaPlayer(media);
 		}catch (Exception e) {
 			e.printStackTrace();

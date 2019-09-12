@@ -9,13 +9,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SongCookies {
-	public static ArrayList<String> songs;
+	public static ArrayList<String> allSongs = read();
 	
-	public SongCookies() {
-		songs = read();
-	}
-	
-	private ArrayList<String> read(){
+	private static ArrayList<String> read(){
 		Scanner s;
 		try {
 			s = new Scanner(new File("songs.txt"));
@@ -33,23 +29,23 @@ public class SongCookies {
 	
 	public static void newLink(List<File> o) {
 		for(File x : o){
-			for(String s : songs) {
+			for(String s : allSongs) {
 				if(s.equals(x.getAbsolutePath())) {
 					break;
 				}
 			}
-			songs.add(x.getAbsolutePath());
+			allSongs.add(x.getAbsolutePath());
 		}
 		save();
 	}
 	
 	public static void newLink(String x) {
-		for(String s : songs) {
+		for(String s : allSongs) {
 			if(s.equals(x)) {
 				return;
 			}
 		}
-		songs.add(x);
+		allSongs.add(x);
 		save();
 	}
 	
@@ -60,7 +56,7 @@ public class SongCookies {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-	    for (String s : songs) {
+	    for (String s : allSongs) {
 	        pw.println(s);
 	    }
 	    pw.close();

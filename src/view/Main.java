@@ -9,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 
 
-
 public class Main extends Application {
 	public static PlaySong p =  new PlaySong();
 	public static Stage s;

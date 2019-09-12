@@ -71,7 +71,6 @@ public class Controller {
     @FXML
     void setVolume(MouseEvent event) {
     	PlaySong.m.setVolume(volume.getValue()/100);
-    	System.out.println(volume.getValue()/100);
     }
 
     @FXML

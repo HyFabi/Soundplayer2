@@ -1,5 +1,6 @@
 package view;
 	
+import controller.Controller;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.PlaySong;
@@ -13,6 +14,7 @@ public class Main extends Application {
 	public static PlaySong p =  new PlaySong();
 	public static Stage s;
 	public static SongCookies sc;
+	public static Controller c = new Controller();
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -22,7 +24,7 @@ public class Main extends Application {
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("View.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			s.setTitle("Fabian´s Musikspieler");
+			s.setTitle("HyFabi´s Musicplayer");
 			s.setScene(scene);
 			s.show();
 		} catch(Exception e) {

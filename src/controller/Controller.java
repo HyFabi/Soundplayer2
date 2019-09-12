@@ -61,9 +61,7 @@ public class Controller {
 
     @FXML
     void play(ActionEvent event) {
-    	try {
-    		PlaySong.m.stop();
-    	}catch (Exception e) {}
+    	try {PlaySong.m.stop();}catch (Exception e) {}
     	PlaySong.m.play();
     }
 
@@ -76,10 +74,19 @@ public class Controller {
     	PlaySong.play(SongCookies.songs.get(rnd.nextInt(SongCookies.songs.size())));
     	PlaySong.m.play();
     }
+    
+    public void rnd() {
+		random(null);
+	}
 
     @FXML
     void setVolume(MouseEvent event) {
-    	PlaySong.m.setVolume(volume.getValue()/100);
+    	try {
+    		PlaySong.m.setVolume(volume.getValue()/100);
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
     }
 
     @FXML
@@ -95,6 +102,9 @@ public class Controller {
     	List<File> list = f.showOpenMultipleDialog(Main.s);
     	if (list != null) {
 			SongCookies.newLink(list);
+    	}
+    	if(list.size() == 1) {
+    		PlaySong.play(list.get(0).getAbsolutePath());
     	}
     }
 }

@@ -67,6 +67,7 @@ public class Controller {
     void random(ActionEvent event) {
     	Random rnd = new Random();
     	PlaySong.play(SongCookies.songs.get(rnd.nextInt(SongCookies.songs.size())));
+    	PlaySong.m.play();
     }
 
     @FXML
@@ -83,7 +84,7 @@ public class Controller {
     void select(ActionEvent event) {
     	FileChooser f = new FileChooser();
     	f.setTitle("Open Sound File");
-    	f.getExtensionFilters().add(new ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"));
+    	f.getExtensionFilters().add(new ExtensionFilter("Audio Files", "*.wav", "*.mp3"));
     	File file = f.showOpenDialog(Main.s);
     	if (file != null) {
     		PlaySong.play(file.getAbsolutePath());

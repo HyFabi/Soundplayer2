@@ -16,7 +16,7 @@
       <Button layoutX="14.0" layoutY="169.0" mnemonicParsing="false" onAction="#play" text="Play" />
       <Button layoutX="78.0" layoutY="169.0" mnemonicParsing="false" onAction="#pause" text="Pause" />
       <Label layoutX="14.0" layoutY="12.0" text="Lautstärke:" />
-      <Button layoutX="154.0" layoutY="169.0" mnemonicParsing="false" onAction="#resume" text="Resume" />
+      <Button layoutX="14.0" layoutY="212.0" mnemonicParsing="false" onAction="#random" text="Random" />
       <Button layoutX="235.0" layoutY="169.0" mnemonicParsing="false" onAction="#stop" text="Stop" />
       <Button layoutX="300.0" layoutY="169.0" mnemonicParsing="false" onAction="#next" text="Next" />
       <Button layoutX="218.0" layoutY="127.0" mnemonicParsing="false" onAction="#select" text="Select" />

@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -59,13 +60,13 @@ public class Controller {
 
     @FXML
     void play(ActionEvent event) {
-    	PlaySong.m.stop();
     	PlaySong.m.play();
     }
 
     @FXML
-    void resume(ActionEvent event) {
-    	PlaySong.m.play();
+    void random(ActionEvent event) {
+    	Random rnd = new Random();
+    	PlaySong.play(SongCookies.songs.get(rnd.nextInt(SongCookies.songs.size())));
     }
 
     @FXML

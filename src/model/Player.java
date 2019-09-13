@@ -13,31 +13,55 @@ public class Player{
 	private static int id;
 	public static ArrayList<String> queue = new ArrayList<>();
 	
-	public static void queue() {
+	public void queue() {
+		queue.clear();
 		@SuppressWarnings("unchecked")
 		ArrayList<String> temp = (ArrayList<String>) SongCookies.allSongs.clone();
 		Random rnd = new Random();
-		for(int i = temp.size(); i > 0; i--){
-			queue.add(temp.remove(rnd.nextInt(i)));
+		for(int i = SongCookies.allSongs.size()-1; i > 0; i--){
+			int x = rnd.nextInt(i+1);
+			queue.add(temp.remove(x));
 		}
+		queue.add(temp.remove(0));
+		id = 0;
+		Main.c.updateList();
 	}
 	
-	public static void play(String path) {
+	public void play(String path) {
 		try {Player.m.stop();}catch (Exception e) {}
 		try {
 			SongCookies.newLink(path);
 			Media media = new Media(new File(path).toURI().toString());
 			m = new MediaPlayer(media);
-			m.setOnEndOfMedia(() -> Main.c.rnd());
+			m.setOnEndOfMedia(() -> play());
 		}catch (Exception e) {e.printStackTrace();}
+		Main.c.debug(null);
 	}
 	
-	public static void play() {
+	public void play() {
 		try {Player.m.stop();}catch (Exception e) {}
 		try {
 			Media media = new Media(new File(queue.get(id)).toURI().toString());
 			m = new MediaPlayer(media);
+			m.play();
+			m.setOnEndOfMedia(() -> next());
+		}catch (Exception e) {e.printStackTrace();}
+		Main.c.debug(null);
+	}
+	
+	public void next() {
+		if(queue.size() > 1) {
+			queue.remove(id);
+		}else {
+			queue();
+		}
+		try {Player.m.stop();}catch (Exception e) {}
+		try {
+			Media media = new Media(new File(queue.get(id)).toURI().toString());
+			m = new MediaPlayer(media);
+			m.play();
 			m.setOnEndOfMedia(() -> play());
 		}catch (Exception e) {e.printStackTrace();}
+		Main.c.debug(null);
 	}
 }

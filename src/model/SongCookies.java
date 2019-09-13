@@ -61,4 +61,15 @@ public class SongCookies {
 	    }
 	    pw.close();
 	}
+	
+	public void check() {
+		for(String s : allSongs){
+			File f = new File(s);
+			if(!f.exists()) {
+				allSongs.remove(s);
+				System.out.println("Eine Datei wurde gelöscht!");
+			}
+		}
+		save();
+	}
 }

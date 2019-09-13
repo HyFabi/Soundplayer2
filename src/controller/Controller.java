@@ -6,15 +6,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.Player;
@@ -41,18 +40,15 @@ public class Controller {
     private Button pauseBtn;
     
     @FXML
-    private ListView<String> list;
-
+    private VBox vbox;
+    
     @FXML
-    void initialize() {
-        assert volume != null : "fx:id=\"volume\" was not injected: check your FXML file 'View.fxml'.";
-        assert playBtn != null : "fx:id=\"playBtn\" was not injected: check your FXML file 'View.fxml'.";
-        assert pauseBtn == null : "fx:id=\"pauseBtn\" was not injected: check your FXML file 'View.fxml'.";
-    }
+    void initialize() {}
 
     @FXML
     void next(ActionEvent event) {
-    	Player.play();
+    	Main.p.next();
+    	updateList();
     }
 
     @FXML
@@ -61,41 +57,42 @@ public class Controller {
     }
 
     @FXML
+    public void debug(ActionEvent event) {
+    	updateList();
+    }
+    
+    @FXML
     void play(ActionEvent event) {
     	try {Player.m.stop();}catch (Exception e) {}
-    	Player.m.play();
+    	Main.p.queue();
+    	Main.p.play();
+    	updateList();
     }
 
     @FXML
     void random(ActionEvent event) {
-    	try {
-    		Player.m.stop();
-    	}catch (Exception e) {}
+    	try {Player.m.stop();}catch (Exception e) {}
     	Random rnd = new Random();
-    	Player.play(SongCookies.allSongs.get(rnd.nextInt(SongCookies.allSongs.size())));
+    	Main.p.play(SongCookies.allSongs.get(rnd.nextInt(SongCookies.allSongs.size())));
     	Player.m.play();
+    	updateList();
     }
     
     public void rnd() {
 		random(null);
+		updateList();
 	}
-    
-    public void updateList2() {
-    	list.setItems(updateList());
-    }
-    
-    public ObservableList<String> updateList() {
-    	
-    	ObservableList<String> ol = FXCollections.observableArrayList();
-    	for (String s : Player.queue) {
-    		ol.add(s);
+
+    public void updateList() {
+    	if(vbox == null) {
+    		vbox = new VBox();
+    	}else {
+    		vbox.getChildren().clear();
     	}
-		return ol;
+    	for (String s : Player.queue) {
+    		vbox.getChildren().add(new Label(s.substring(s.lastIndexOf("\\")+1, s.lastIndexOf("."))));
+    	}
 	}
-    
-    public ListView<String> getListe() {
-    	return list;
-    }
 
     @FXML
     void setVolume(MouseEvent event) {
@@ -108,6 +105,7 @@ public class Controller {
     @FXML
     void stop(ActionEvent event) {
     	Player.m.stop();
+    	updateList();
     }
     
     @FXML
@@ -120,7 +118,8 @@ public class Controller {
 			SongCookies.newLink(list);
     	}
     	if(list.size() == 1) {
-    		Player.play(list.get(0).getAbsolutePath());
+    		Main.p.play(list.get(0).getAbsolutePath());
     	}
+    	updateList();
     }
 }

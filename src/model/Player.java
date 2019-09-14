@@ -33,7 +33,7 @@ public class Player{
 			SongCookies.newLink(path);
 			Media media = new Media(new File(path).toURI().toString());
 			m = new MediaPlayer(media);
-			m.setOnEndOfMedia(() -> play());
+			m.setOnEndOfMedia(() -> next());
 		}catch (Exception e) {e.printStackTrace();}
 		Main.c.debug(null);
 	}

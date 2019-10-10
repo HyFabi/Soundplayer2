@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.Player;
-import model.SongCookies;
+import model.songthings.SongCollections;
 import view.Main;
 
 public class Controller {
@@ -27,6 +28,9 @@ public class Controller {
     @FXML
     private URL location;
 
+    @FXML
+    private RadioButton rBtn1 = new RadioButton();
+    
     @FXML
     private Slider volume;
     
@@ -43,7 +47,8 @@ public class Controller {
     private VBox vbox;
     
     @FXML
-    void initialize() {}
+    void initialize() {
+    }
 
     @FXML
     void next(ActionEvent event) {
@@ -73,9 +78,13 @@ public class Controller {
     void random(ActionEvent event) {
     	try {Player.m.stop();}catch (Exception e) {}
     	Random rnd = new Random();
-    	Main.p.play(SongCookies.allSongs.get(rnd.nextInt(SongCookies.allSongs.size())));
+    	Main.p.play(Main.as.songs.get(rnd.nextInt(Main.as.songs.size())));
     	Player.m.play();
     	updateList();
+    }
+    
+    public RadioButton getRBtn1() {
+    	return rBtn1;
     }
     
     public void rnd() {
@@ -115,7 +124,7 @@ public class Controller {
     	f.getExtensionFilters().add(new ExtensionFilter("Audio Files", "*.wav", "*.mp3"));
     	List<File> list = f.showOpenMultipleDialog(Main.s);
     	if (list != null) {
-			SongCookies.newLink(list);
+			Main.as.newLink(list);
     	}
     	if(list.size() == 1) {
     		Main.p.play(list.get(0).getAbsolutePath());

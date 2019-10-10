@@ -13,12 +13,12 @@ public class Player{
 	private static int id;
 	public static ArrayList<String> queue = new ArrayList<>();
 	
+	//TODO Wenn Main.as.songs.clone(); leer ist
 	public void queue() {
 		queue.clear();
-		@SuppressWarnings("unchecked")
-		ArrayList<String> temp = (ArrayList<String>) SongCookies.allSongs.clone();
+		ArrayList<String> temp = (ArrayList<String>) Main.as.songs.clone();
 		Random rnd = new Random();
-		for(int i = SongCookies.allSongs.size()-1; i > 0; i--){
+		for(int i = Main.as.songs.size()-1; i > 0; i--){
 			int x = rnd.nextInt(i+1);
 			queue.add(temp.remove(x));
 		}
@@ -30,7 +30,7 @@ public class Player{
 	public void play(String path) {
 		try {Player.m.stop();}catch (Exception e) {}
 		try {
-			SongCookies.newLink(path);
+			Main.as.newLink(path);
 			Media media = new Media(new File(path).toURI().toString());
 			m = new MediaPlayer(media);
 			m.setOnEndOfMedia(() -> next());
@@ -44,6 +44,7 @@ public class Player{
 			Media media = new Media(new File(queue.get(id)).toURI().toString());
 			m = new MediaPlayer(media);
 			m.play();
+//			System.out.println(Main.c.getRBtn1().selectedProperty().toString());
 			m.setOnEndOfMedia(() -> next());
 		}catch (Exception e) {e.printStackTrace();}
 		Main.c.debug(null);
@@ -60,7 +61,7 @@ public class Player{
 			Media media = new Media(new File(queue.get(id)).toURI().toString());
 			m = new MediaPlayer(media);
 			m.play();
-			m.setOnEndOfMedia(() -> play());
+			m.setOnEndOfMedia(() -> next());
 		}catch (Exception e) {e.printStackTrace();}
 		Main.c.debug(null);
 	}

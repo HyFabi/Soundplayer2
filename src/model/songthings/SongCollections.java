@@ -1,4 +1,4 @@
-package model;
+package model.songthings;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,13 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class SongCookies {
-	public static ArrayList<String> allSongs = read();
+public class SongCollections {
+	public ArrayList<String> songs;
 	
-	private static ArrayList<String> read(){
+	public SongCollections(String path) {
+		songs = read(path);
+	}
+	
+	private ArrayList<String> read(String path){
 		Scanner s;
 		try {
-			s = new Scanner(new File("songs.txt"));
+			s = new Scanner(new File(path));
 		} catch (FileNotFoundException e) {
 			System.out.println("Datei nicht vorhanden");
 			return new ArrayList<>();
@@ -27,46 +31,46 @@ public class SongCookies {
 		return list;
 	}
 	
-	public static void newLink(List<File> o) {
+	public void newLink(List<File> o) {
 		for(File x : o){
-			for(String s : allSongs) {
+			for(String s : songs) {
 				if(s.equals(x.getAbsolutePath())) {
 					break;
 				}
 			}
-			allSongs.add(x.getAbsolutePath());
+			songs.add(x.getAbsolutePath());
 		}
 		save();
 	}
 	
-	public static void newLink(String x) {
-		for(String s : allSongs) {
+	public void newLink(String x) {
+		for(String s : songs) {
 			if(s.equals(x)) {
 				return;
 			}
 		}
-		allSongs.add(x);
+		songs.add(x);
 		save();
 	}
 	
-	public static void save(){
+	public void save(){
 	    PrintWriter pw = null;
 		try {
 			pw = new PrintWriter(new FileOutputStream("songs.txt"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-	    for (String s : allSongs) {
+	    for (String s : songs) {
 	        pw.println(s);
 	    }
 	    pw.close();
 	}
 	
 	public void check() {
-		for(String s : allSongs){
+		for(String s : songs){
 			File f = new File(s);
 			if(!f.exists()) {
-				allSongs.remove(s);
+				songs.remove(s);
 				System.out.println("Eine Datei wurde gelöscht!");
 			}
 		}
